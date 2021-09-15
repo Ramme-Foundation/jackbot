@@ -10,6 +10,7 @@ import { commandJackpot } from './commands/jackpot';
 import { commandChoose } from './commands/choose';
 import { saveCustomNumber } from './commands/saveCustomNumber';
 import { saveCustomBonus } from './commands/saveCustomBonus';
+import { randomCommand } from './commands/random';
 
 mongoose.connection.on('error', () => {
   // tslint:disable-next-line:no-console
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/eurojackpot', async (req: any, res: any) => {
   const command: Commands = req.body.text ? req.body.text : 'help';
   const team: string = req.body.team_id;
+  const responseUrl: string = req.body.response_url;
   // tslint:disable-next-line:no-console
   console.log(command);
   switch (command) {
@@ -39,6 +41,8 @@ app.post('/eurojackpot', async (req: any, res: any) => {
       return commandJackpot(res);
     case Commands.CHOOSE:
       return commandChoose(res, team);
+    case Commands.RANDOM:
+      return randomCommand(res, responseUrl, team);
     case Commands.HELP:
     default:
       return res.status(200).send({

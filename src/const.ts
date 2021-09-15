@@ -1,5 +1,6 @@
 export enum Commands {
   GO = 'go',
+  RANDOM = 'random',
   RESULT = 'result',
   JACKPOT = 'jackpot',
   CHOOSE = 'choose',

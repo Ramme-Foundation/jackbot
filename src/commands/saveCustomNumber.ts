@@ -14,7 +14,11 @@ export async function saveCustomNumber(
     week: moment().isoWeek(),
   });
   if (lotteryRow) {
-    lotteryRow.numbers = [...lotteryRow.numbers, Number(action.text.text)];
+    const number = Number(action.text.text);
+    if(lotteryRow.numbers.includes(number)) {
+        throw Error(`Number ${number} already exists`)
+    }
+    lotteryRow.numbers = [...lotteryRow.numbers, number];
     await lotteryRow.save();
   } else {
     lotteryRow = await CustomLotteryRow.create({
