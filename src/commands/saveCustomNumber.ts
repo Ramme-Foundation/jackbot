@@ -12,6 +12,7 @@ export async function saveCustomNumber(
   let lotteryRow = await CustomLotteryRow.findOne({
     team_id: teamId,
     week: moment().isoWeek(),
+    year: moment().year(),
   });
   if (lotteryRow) {
     const number = Number(action.text.text);
@@ -24,6 +25,7 @@ export async function saveCustomNumber(
     lotteryRow = await CustomLotteryRow.create({
       team_id: teamId,
       week: moment().isoWeek(),
+      year: moment().year(),
       numbers: [action.text.text],
       bonus_numbers: [],
     });

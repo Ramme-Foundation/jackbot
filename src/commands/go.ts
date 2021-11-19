@@ -7,11 +7,13 @@ export async function commandGo(response: Response, team: string) {
   let lotteryRow = await LotteryRow.findOne({
     team_id: team,
     week: moment().isoWeek(),
+    year: moment().year()
   });
   if (!lotteryRow) {
     lotteryRow = await LotteryRow.create({
       team_id: team,
       week: moment().isoWeek(),
+      year: moment().year(),
       row: `Extremely likely winning row: ${generateNumbers(
         5,
         50

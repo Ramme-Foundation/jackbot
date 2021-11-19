@@ -12,6 +12,7 @@ export async function saveCustomBonus(
   let lotteryRow = await CustomLotteryRow.findOne({
     team_id: teamId,
     week: moment().isoWeek(),
+    year: moment().year()
   });
   if (lotteryRow) {
     lotteryRow.bonus_numbers = [
@@ -23,6 +24,7 @@ export async function saveCustomBonus(
     lotteryRow = await CustomLotteryRow.create({
       team_id: teamId,
       week: moment().isoWeek(),
+      year: moment().year(),
       bonus_numbers: [Number(action.text.text)],
       numbers: [],
     });
