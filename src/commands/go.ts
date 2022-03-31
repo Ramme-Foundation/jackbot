@@ -17,7 +17,7 @@ export async function commandGo(response: Response, team: string) {
       row: `Extremely likely winning row: ${generateNumbers(
         5,
         50
-      )} with bonus digits ${generateNumbers(2, 10)}`,
+      )} with bonus digits ${generateNumbers(2, 12)}`,
     });
   }
 

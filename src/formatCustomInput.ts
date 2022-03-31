@@ -50,7 +50,7 @@ export function formatCustomInput() {
           text: '*Choose a bonus number:*',
         },
       },
-      ...createSections(5, 10, 'bonus'),
+      ...createSections(5, 12, 'bonus'),
     ],
   };
 }
