@@ -13,16 +13,16 @@ function createButtons(count: number, offset = 0, key: string) {
   });
 }
 
-function createSections(
+export function createSections(
   itemsPerSection: number,
   maxCount: number,
   key: string
 ) {
-  return new Array(Math.round(maxCount / itemsPerSection))
+  return new Array(Math.ceil(maxCount / itemsPerSection))
     .fill(0)
     .map((_, index) => ({
       type: 'actions',
-      elements: createButtons(itemsPerSection, itemsPerSection * index, key),
+      elements: createButtons(Math.min(itemsPerSection, maxCount - (index * itemsPerSection)), itemsPerSection * index, key),
     }));
 }
 
