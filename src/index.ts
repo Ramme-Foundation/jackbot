@@ -79,7 +79,10 @@ app.post("/api/interactive", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(process.env.PORT || 4390, () => {
+/* app.listen(process.env.PORT || 4390, () => {
   // tslint:disable-next-line:no-console
   console.log(`Example app listening on port ${process.env.PORT || 4390}!`);
 });
+*/
+
+module.exports = app;
