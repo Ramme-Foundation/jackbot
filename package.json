@@ -4,8 +4,6 @@
   "description": "Time to become millionaires",
   "main": "dist/index.js",
   "scripts": {
-    "tslint": "tslint -c tslint.json -p tsconfig.json --fix",
-    "prestart": "npm run build",
     "test": "jest",
     "dev": "next dev",
     "build": "next build",
