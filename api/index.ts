@@ -3,14 +3,14 @@ require("dotenv").config();
 import express, { Response, Request } from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import { Commands } from "./const";
-import { commandGo } from "./commands/go";
-import { commandResult } from "./commands/result";
-import { commandJackpot } from "./commands/jackpot";
-import { commandChoose } from "./commands/choose";
-import { saveCustomNumber } from "./commands/saveCustomNumber";
-import { saveCustomBonus } from "./commands/saveCustomBonus";
-import { randomCommand } from "./commands/random";
+import { Commands } from "../src/const";
+import { commandGo } from "../src/commands/go";
+import { commandResult } from "../src/commands/result";
+import { commandJackpot } from "../src/commands/jackpot";
+import { commandChoose } from "../src/commands/choose";
+import { saveCustomNumber } from "../src/commands/saveCustomNumber";
+import { saveCustomBonus } from "../src/commands/saveCustomBonus";
+import { randomCommand } from "../src/commands/random";
 
 mongoose.connection.on("error", () => {
   // tslint:disable-next-line:no-console
