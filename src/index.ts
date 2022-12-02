@@ -1,24 +1,24 @@
 // tslint:disable-next-line:no-var-requires
-require('dotenv').config();
-import express, { Response, Request } from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import { Commands } from './const';
-import { commandGo } from './commands/go';
-import { commandResult } from './commands/result';
-import { commandJackpot } from './commands/jackpot';
-import { commandChoose } from './commands/choose';
-import { saveCustomNumber } from './commands/saveCustomNumber';
-import { saveCustomBonus } from './commands/saveCustomBonus';
-import { randomCommand } from './commands/random';
+require("dotenv").config();
+import express, { Response, Request } from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import { Commands } from "./const";
+import { commandGo } from "./commands/go";
+import { commandResult } from "./commands/result";
+import { commandJackpot } from "./commands/jackpot";
+import { commandChoose } from "./commands/choose";
+import { saveCustomNumber } from "./commands/saveCustomNumber";
+import { saveCustomBonus } from "./commands/saveCustomBonus";
+import { randomCommand } from "./commands/random";
 
-mongoose.connection.on('error', () => {
+mongoose.connection.on("error", () => {
   // tslint:disable-next-line:no-console
-  console.error.bind(console, 'connection error:');
+  console.error.bind(console, "connection error:");
 });
-mongoose.connection.on('open', () => {
+mongoose.connection.on("open", () => {
   // tslint:disable-next-line:no-console
-  console.log('Connected to database');
+  console.log("Connected to database");
 });
 
 const app = express();
@@ -26,8 +26,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/eurojackpot', async (req: any, res: any) => {
-  const command: Commands = req.body.text ? req.body.text : 'help';
+app.post("/api/eurojackpot", async (req: any, res: any) => {
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
+  const command: Commands = req.body.text ? req.body.text : "help";
   const team: string = req.body.team_id;
   const responseUrl: string = req.body.response_url;
   // tslint:disable-next-line:no-console
@@ -46,16 +47,17 @@ app.post('/eurojackpot', async (req: any, res: any) => {
     case Commands.HELP:
     default:
       return res.status(200).send({
-        response_type: 'ephemeral',
+        response_type: "ephemeral",
         text: `Available commands are /jackbot ${Object.keys(Commands)
           // @ts-ignore
           .map((key) => Commands[key])
-          .join(' | ')}`,
+          .join(" | ")}`,
       });
   }
 });
 
-app.post('/interactive', async (req: Request, res: Response) => {
+app.post("/api/interactive", async (req: Request, res: Response) => {
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   const payload = JSON.parse(req.body.payload);
   const actions: SlackInteractive.Action[] = payload.actions;
   const response_url = payload.response_url;
@@ -66,11 +68,11 @@ app.post('/interactive', async (req: Request, res: Response) => {
 
   const action = actions[0];
 
-  const values = action.value.split(':');
+  const values = action.value.split(":");
   switch (values[0]) {
-    case 'number':
+    case "number":
       return saveCustomNumber(res, action, response_url, team.id);
-    case 'bonus':
+    case "bonus":
       return saveCustomBonus(res, action, response_url, team.id);
     default:
       return res.send(400);
