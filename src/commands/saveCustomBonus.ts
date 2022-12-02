@@ -1,11 +1,11 @@
 import moment from "moment";
-import { Response } from "express";
 import { CustomLotteryRow, ICustomLotteryRow } from "../database";
 import axios from "axios";
 import { SlackInteractive } from "../slack";
+import { NextApiResponse } from "next";
 
 export async function saveCustomBonus(
-  response: Response,
+  response: NextApiResponse,
   action: SlackInteractive.Action,
   responseUrl: string,
   teamId: string

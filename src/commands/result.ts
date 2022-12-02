@@ -1,11 +1,12 @@
-import { Response } from 'express';
-import axios from 'axios';
-import { RESULT_API_URL } from '../const';
+import { Response } from "express";
+import axios from "axios";
+import { RESULT_API_URL } from "../const";
+import { NextApiResponse } from "next";
 
-export async function commandResult(response: Response) {
+export async function commandResult(response: NextApiResponse) {
   const resultString: string = await generateResult();
   return response.status(200).send({
-    response_type: 'in_channel',
+    response_type: "in_channel",
     text: resultString,
   });
 }
@@ -17,8 +18,8 @@ function generateResult(): Promise<string> {
     return `Resulting lottery draw for ${pad(year)}-${pad(month)}-${pad(
       day
     )}\n${result.last.numbers.join(
-      ' - '
-    )} with digits ${result.last.euroNumbers.join(' - ')}`;
+      " - "
+    )} with digits ${result.last.euroNumbers.join(" - ")}`;
   });
 }
 

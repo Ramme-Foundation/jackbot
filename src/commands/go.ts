@@ -1,13 +1,13 @@
-import moment from 'moment';
-import { LotteryRow } from '../database';
-import { generateNumbers } from '../utils/generateNumbers';
-import { Response } from 'express';
+import moment from "moment";
+import { LotteryRow } from "../database";
+import { generateNumbers } from "../utils/generateNumbers";
+import { NextApiResponse } from "next";
 
-export async function commandGo(response: Response, team: string) {
+export async function commandGo(response: NextApiResponse, team: string) {
   let lotteryRow = await LotteryRow.findOne({
     team_id: team,
     week: moment().isoWeek(),
-    year: moment().year()
+    year: moment().year(),
   });
   if (!lotteryRow) {
     lotteryRow = await LotteryRow.create({
@@ -22,7 +22,7 @@ export async function commandGo(response: Response, team: string) {
   }
 
   return response.status(200).send({
-    response_type: 'in_channel',
+    response_type: "in_channel",
     text: lotteryRow.row,
   });
 }
