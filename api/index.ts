@@ -11,6 +11,7 @@ import { commandChoose } from "../src/commands/choose";
 import { saveCustomNumber } from "../src/commands/saveCustomNumber";
 import { saveCustomBonus } from "../src/commands/saveCustomBonus";
 import { randomCommand } from "../src/commands/random";
+import { SlackInteractive } from "../src/slack";
 
 mongoose.connection.on("error", () => {
   // tslint:disable-next-line:no-console
